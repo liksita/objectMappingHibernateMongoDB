@@ -1,16 +1,10 @@
 package com.haw_hamburg.de.objectMapping.hibernate.app;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.Set;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
-import com.haw_hamburg.de.objectMapping.hibernate.entities.Activity;
 import com.haw_hamburg.de.objectMapping.hibernate.entities.Comment;
 import com.haw_hamburg.de.objectMapping.hibernate.entities.Discussion;
 import com.haw_hamburg.de.objectMapping.hibernate.entities.LoginData;
@@ -20,7 +14,7 @@ import com.haw_hamburg.de.objectMapping.hibernate.entities.User;
 public class MongoHibernate {
 
 	// Testkonfig
-	public Integer inserts = 1000;
+	public Integer inserts;
 
 	private static int runCount = 0;
 
@@ -30,6 +24,7 @@ public class MongoHibernate {
 	public MongoHibernate(Integer inserts) {
 		this.inserts = inserts;
 		entityManagerFactory = Persistence.createEntityManagerFactory("userPostsMongo");
+
 		entityManager = entityManagerFactory.createEntityManager();
 	}
 
@@ -56,9 +51,6 @@ public class MongoHibernate {
 			discussion1.setUsers(Arrays.asList(user1, user2));
 			discussion2.setUsers(Arrays.asList(user1, user2));
 
-			// user1.setDiscussions(Arrays.asList(discussion1, discussion2));
-			// user2.setDiscussions(Arrays.asList(discussion1, discussion2));
-
 			// and three posts
 			Post post1 = new Post("Title1 " + runCount + j, new Date());
 			Post post2 = new Post("Title2 " + runCount + j, new Date());
@@ -71,16 +63,16 @@ public class MongoHibernate {
 			// let Bob post two posts
 			post1.setAuthor(user1);
 			user1.getUserPosts().add(post1);
-			
+
 			comment1.setAuthor(user1);
 			user1.getUserComments().add(comment1);
-			
+
 			comment2.setAuthor(user1);
 			user1.getUserComments().add(comment2);
-			
+
 			comment1.setPost(post1);
 			post1.getUserComments().add(comment1);
-			
+
 			comment2.setPost(post2);
 			post2.getUserComments().add(comment2);
 
@@ -91,8 +83,8 @@ public class MongoHibernate {
 			user2.getUserPosts().add(post3);
 
 			// persist author (will be cascaded to posts)
-			// entityManager.persist(user1);
-			// entityManager.persist(user2);
+			entityManager.persist(user1);
+			entityManager.persist(user2);
 
 			entityManager.persist(discussion1);
 			entityManager.persist(discussion2);

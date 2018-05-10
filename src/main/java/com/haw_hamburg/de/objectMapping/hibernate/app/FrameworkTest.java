@@ -3,7 +3,6 @@ package com.haw_hamburg.de.objectMapping.hibernate.app;
 import java.net.UnknownHostException;
 
 import com.haw_hamburg.de.objectMapping.utils.Result;
-import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
@@ -29,14 +28,10 @@ public class FrameworkTest {
 	// Collection
 	private String collection_post_name = "Post";
 	private DBCollection collection_post = null;
-	
+
 	// Collection
 	private String collection_comment_name = "Comment";
 	private DBCollection collection_comment = null;
-	
-	// Collection
-	private String collection_activity_name = "Activity";
-	private DBCollection collection_activity = null;
 
 	// Collection
 	private String collection_discussion_name = "Discussion";
@@ -47,8 +42,8 @@ public class FrameworkTest {
 	private DB db = null;
 
 	// Testkonfig
-	public Integer inserts = 100000;
-	public Integer runs = 5;
+	public Integer inserts;
+	public Integer runs;
 
 	MongoHibernate mh;
 
@@ -112,8 +107,8 @@ public class FrameworkTest {
 
 		}
 
-//		 Delete Test Environment
-//		deleteTestEnvironment();
+		// Delete Test Environment
+		 deleteTestEnvironment();
 
 		// Print Result
 		return this.result;
@@ -138,12 +133,10 @@ public class FrameworkTest {
 		this.db.createCollection(this.collection_user_name, null);
 		this.db.createCollection(this.collection_post_name, null);
 		this.db.createCollection(this.collection_comment_name, null);
-		this.db.createCollection(this.collection_activity_name, null);
 		this.db.createCollection(this.collection_discussion_name, null);
 		this.collection_user = this.db.getCollection(this.collection_user_name);
 		this.collection_post = this.db.getCollection(this.collection_post_name);
 		this.collection_comment = this.db.getCollection(this.collection_comment_name);
-		this.collection_activity = this.db.getCollection(this.collection_activity_name);
 		this.collection_discussion = this.db.getCollection(this.collection_discussion_name);
 	}
 
@@ -153,28 +146,15 @@ public class FrameworkTest {
 		this.db.getCollection(this.collection_user_name).drop();
 		this.db.getCollection(this.collection_post_name).drop();
 		this.db.getCollection(this.collection_comment_name).drop();
-		this.db.getCollection(this.collection_activity_name).drop();
 		this.db.getCollection(this.collection_discussion_name).drop();
 		this.mh.closeConnection();
 
 	}
 
-	// private void insertDocuments() {
-	// for (int i = 0; i < this.inserts; i++) {
-	// try {
-	// this.collection.insert(new BasicDBObject(String.valueOf(i), "test"));
-	// } catch (Exception e) {
-	// System.out.println("Error on inserting element: " + i);
-	// e.printStackTrace();
-	// }
-	// }
-	// }
-
 	private void printCount() {
 		System.out.println("Count users " + this.collection_user.find().count());
 		System.out.println("Count posts " + this.collection_post.find().count());
 		System.out.println("Count comments " + this.collection_comment.find().count());
-		System.out.println("Count activities " + this.collection_activity.find().count());
 		System.out.println("Count discussions " + this.collection_discussion.find().count());
 	}
 

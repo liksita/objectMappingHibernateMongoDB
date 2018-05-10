@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>objectMapping</name>
+	<name>objectMappingHibernateMongoDB</name>
 	<comment></comment>
 	<projects>
 	</projects>

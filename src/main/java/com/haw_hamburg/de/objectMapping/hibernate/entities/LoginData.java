@@ -7,7 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
-import org.hibernate.annotations.GenericGenerator;
 
 @Embeddable
 public class LoginData {

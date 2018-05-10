@@ -27,14 +27,13 @@ public class User {
 	private String firstName;
 	private String lastName;
 
-	@OrderColumn(name = "loginData")
 	private LoginData loginData;
 
 	@OneToMany(mappedBy = "author", cascade = CascadeType.PERSIST)
-	private Set<Activity> userPosts = new HashSet<>();
-	
+	private Set<Post> userPosts = new HashSet<>();
+
 	@OneToMany(mappedBy = "author", cascade = CascadeType.PERSIST)
-	private Set<Activity> userComments = new HashSet<>();
+	private Set<Comment> userComments = new HashSet<>();
 
 	@ManyToMany(targetEntity = Discussion.class, mappedBy = "users")
 	private List<Discussion> discussions;
@@ -73,19 +72,19 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public Set<Activity> getUserPosts() {
+	public Set<Post> getUserPosts() {
 		return userPosts;
 	}
 
-	public void setUserPosts(Set<Activity> userPosts) {
+	public void setUserPosts(Set<Post> userPosts) {
 		this.userPosts = userPosts;
 	}
-	
-	public Set<Activity> getUserComments() {
+
+	public Set<Comment> getUserComments() {
 		return userComments;
 	}
 
-	public void setUserComments(Set<Activity> userComments) {
+	public void setUserComments(Set<Comment> userComments) {
 		this.userComments = userComments;
 	}
 
@@ -97,12 +96,12 @@ public class User {
 		this.discussions = discussions;
 	}
 
-	 public LoginData getLoginData() {
-	 return loginData;
-	 }
-	
-	 public void setLoginData(LoginData loginData) {
-	 this.loginData = loginData;
-	 }
+	public LoginData getLoginData() {
+		return loginData;
+	}
+
+	public void setLoginData(LoginData loginData) {
+		this.loginData = loginData;
+	}
 
 }

@@ -12,24 +12,19 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<ogm.version>4.1.1.Final</ogm.version>
 	</properties>
-    	<dependencyManagement>
+	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>org.hibernate.ogm</groupId>
 				<artifactId>hibernate-ogm-bom</artifactId>
 				<type>pom</type>
-				<version>4.1.1.Final</version>
+				<version>5.3.1.Final</version>
 				<scope>import</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	<dependencies>
-		<!-- <dependency> <groupId>org.mongodb</groupId> <artifactId>mongo-java-driver</artifactId> 
-			<version>3.6.1</version> </dependency> -->
-		<!-- <dependency> <groupId>org.mongojack</groupId> <artifactId>mongojack</artifactId> 
-			<version>2.7.0</version> </dependency> -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -42,46 +37,9 @@
 			<version>1.4</version>
 			<scope>test</scope>
 		</dependency>
- 		<dependency>
+		<dependency>
 			<groupId>org.hibernate.ogm</groupId>
 			<artifactId>hibernate-ogm-mongodb</artifactId>
-		</dependency>
- 		<dependency>
-			<groupId>org.jboss.jbossts</groupId>
-			<artifactId>jbossjta</artifactId>
-		</dependency> 
-		<!-- data nucleus -->
-		<dependency>
-			<groupId>org.datanucleus</groupId>
-			<artifactId>datanucleus-core</artifactId>
-			<version>5.1.6</version>
-		</dependency>
-		<dependency>
-			<groupId>org.datanucleus</groupId>
-			<artifactId>datanucleus-api-jdo</artifactId>
-			<version>5.1.4</version>
-		</dependency>
-   	<dependency>
-		<groupId>org.datanucleus</groupId>
-		<artifactId>javax.jdo</artifactId>
-		<version>3.2.0-m5</version>
-	</dependency>  	 
-	<!-- https://mvnrepository.com/artifact/javax.jdo/jdo-api -->
-<!-- <dependency>
-    <groupId>javax.jdo</groupId>
-    <artifactId>jdo-api</artifactId>
-    <version>3.0.1</version>
-</dependency> -->
-	<!-- https://mvnrepository.com/artifact/org.datanucleus/datanucleus-mongodb -->
-	<dependency>
-		<groupId>org.datanucleus</groupId>
-		<artifactId>datanucleus-mongodb</artifactId>
-		<version>5.1.0-release</version>
-	</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.16</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -104,27 +62,7 @@
 					<downloadJavadocs>true</downloadJavadocs>
 				</configuration>
 			</plugin>
-			<!-- data nucleus -->
 			<plugin>
-				<groupId>org.datanucleus</groupId>
-				<artifactId>datanucleus-maven-plugin</artifactId>
-				<version>5.0.2</version>
-				<configuration>
-<!--  					<api>JDO</api>
-					<persistenceUnitName>userPosts</persistenceUnitName>  -->
-					<log4jConfiguration>src/main/resources/log4j.properties</log4jConfiguration>
-					<verbose>true</verbose>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>process-classes</phase>
-						<goals>
-							<goal>enhance</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
- 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.1</version>
@@ -137,8 +75,8 @@
 						</systemProperty>
 					</systemProperties>
 				</configuration>
-			</plugin> 
- 			<plugin>
+			</plugin>
+			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>2.2.1</version>
 				<configuration>
@@ -146,7 +84,7 @@
 						<descriptor>${basedir}/assembly.xml</descriptor>
 					</descriptors>
 				</configuration>
-			</plugin> 
+			</plugin>
 		</plugins>
 	</build>
 </project>
