@@ -22,7 +22,7 @@ import javax.persistence.InheritanceType;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@DiscriminatorValue(value = "B")
+//@DiscriminatorValue(value = "B")
 public class Post extends Activity{
 	
 

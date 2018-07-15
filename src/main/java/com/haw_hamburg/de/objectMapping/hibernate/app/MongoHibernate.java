@@ -23,8 +23,8 @@ public class MongoHibernate {
 
 	public MongoHibernate(Integer inserts) {
 		this.inserts = inserts;
-		entityManagerFactory = Persistence.createEntityManagerFactory("userPostsMongo");
-
+		entityManagerFactory = 
+				Persistence.createEntityManagerFactory("userPostsMongo");
 		entityManager = entityManagerFactory.createEntityManager();
 	}
 
@@ -83,8 +83,8 @@ public class MongoHibernate {
 			user2.getUserPosts().add(post3);
 
 			// persist author (will be cascaded to posts)
-			entityManager.persist(user1);
-			entityManager.persist(user2);
+			// entityManager.persist(user1);
+			// entityManager.persist(user2);
 
 			entityManager.persist(discussion1);
 			entityManager.persist(discussion2);

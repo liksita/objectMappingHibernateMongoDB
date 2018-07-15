@@ -5,7 +5,7 @@ import com.haw_hamburg.de.objectMapping.hibernate.app.FrameworkTest;
 public class Main {
 	public static void main(String[] args) {
 		// MongoDB
-		FrameworkTest mongodb = new FrameworkTest(500, 3);
+		FrameworkTest mongodb = new FrameworkTest(1, 1);
 		try {
 			mongodb.performWriteTest().printMeasureResult();
 		} catch (Exception e) {

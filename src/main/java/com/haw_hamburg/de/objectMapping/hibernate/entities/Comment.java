@@ -9,7 +9,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 
 @Entity
-@DiscriminatorValue(value = "A")
+//@DiscriminatorValue(value = "A") // for single table
 public class Comment extends Activity {
 
 	@ManyToOne

@@ -11,9 +11,6 @@ import javax.persistence.OneToOne;
 @Embeddable
 public class LoginData {
 	
-//	@Id
-//	@GeneratedValue(generator = "uuid")
-//	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
 
 	private String username;
