@@ -16,7 +16,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @DiscriminatorColumn(name = "TYPE")
 public abstract class Activity {
-	
+
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -28,6 +28,9 @@ public abstract class Activity {
 	User author;
 
 	// constructors, getters and setters...
+	Activity() {
+
+	}
 
 	public Activity(Date date) {
 		this.date = date;

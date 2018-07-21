@@ -27,6 +27,9 @@ public class Discussion {
 			fetch = FetchType.LAZY)
 	private List<User> users;
 	
+	Discussion() {
+	}
+	
 	public Discussion(String topic) {
 		this.topic = topic;
 	}

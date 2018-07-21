@@ -22,17 +22,19 @@ import javax.persistence.InheritanceType;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-//@DiscriminatorValue(value = "B")
-public class Post extends Activity{
-	
+// @DiscriminatorValue(value = "B")
+public class Post extends Activity {
 
 	private String title;
-	
+
 	@OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST)
 	private Set<Comment> userComments = new HashSet<>();
 
 	// constructors, getters and setters...
-
+	
+	Post() {
+		
+	}
 
 	public Post(String title, Date date) {
 		super(date);
@@ -53,7 +55,7 @@ public class Post extends Activity{
 	public void setUserComments(Set<Comment> userComments) {
 		this.userComments = userComments;
 	}
-	
+
 	public String getId() {
 		return this.id;
 	}

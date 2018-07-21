@@ -14,6 +14,10 @@ public class Comment extends Activity {
 
 	@ManyToOne
 	private Post post;
+	
+	Comment() {
+		
+	}
 
 	public Comment(Date date) {
 		super(date);

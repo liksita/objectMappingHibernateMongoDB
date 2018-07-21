@@ -2,17 +2,20 @@ package com.haw_hamburg.de.objectMapping.hibernate.app;
 
 import java.net.UnknownHostException;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import com.haw_hamburg.de.objectMapping.utils.Result;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
-import com.mongodb.ReadPreference;
 import com.mongodb.ServerAddress;
 
 public class FrameworkTest {
 
 	// Result Object
-	private Result result;
+	private Result resultWrite;
+	private Result resultRead;
 
 	// Node and Port Config
 	private String node = "localhost";
@@ -39,13 +42,18 @@ public class FrameworkTest {
 
 	// DB
 	private String db_name = "UserPostsMongo";
+
+	// Entity Manager Factory
+	private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("userPostsMongo");
+
 	private DB db = null;
 
 	// Testkonfig
 	public Integer inserts;
 	public Integer runs;
 
-	MongoHibernate mh;
+	StoreActivity storeActivity;
+	ReadActivity readActivity;
 
 	public FrameworkTest() {
 
@@ -54,7 +62,8 @@ public class FrameworkTest {
 	public FrameworkTest(Integer inserts, Integer runs) {
 		this.inserts = inserts;
 		this.runs = runs;
-		mh = new MongoHibernate(inserts);
+		storeActivity = new StoreActivity(inserts, entityManagerFactory);
+		readActivity = new ReadActivity(entityManagerFactory);
 	}
 
 	public Integer getInserts() {
@@ -78,43 +87,75 @@ public class FrameworkTest {
 		return addrs;
 	}
 
+	public void performTests() throws Exception {
+
+	}
+
 	public Result performWriteTest() throws Exception {
 
 		// Intialize Variables
-		this.result = new Result();
+		this.resultWrite = new Result();
 
 		// Create Test Environment
 		createTestEnvironment();
 
+		int runsWrite = this.runs;
+
 		// Execute Runs
-		for (Integer i = 0; i < this.runs; i++) {
+		for (int i = 0; i < runsWrite; i++) {
 
 			// Record Start Time
 			long startTime = System.nanoTime();
 
 			// Insert Documents
-			mh.persistEntities();
-
-			// Print Count
-			printCount();
+			storeActivity.persistEntities();
 
 			// Record End Time and calculate Run Time
 			long estimatedTime = System.nanoTime() - startTime;
 			double seconds = (double) estimatedTime / 1000000000.0;
 
-			result.addMeasureResult("Run" + (i), seconds, this.inserts);
-			System.out.println("Run" + (i) + " finished");
+			printCount();
+
+			resultWrite.addMeasureResult("Write Run" + (i), seconds, this.inserts, true);
+			System.out.println("Write Run" + (i) + " finished");
 
 		}
 
-		// Delete Test Environment
-		 deleteTestEnvironment();
+		this.storeActivity.closeConnection();
 
 		// Print Result
-		return this.result;
+		return this.resultWrite;
 
 	}
 
+	public Result performReadTest() throws Exception {
+		// Intialize Variables
+		this.resultRead = new Result();
+
+//		int runsRead = this.runs;
+//		for (Integer j = 0; j < runsRead; j++) {
+
+			// Record Start Time
+			long startTime = System.nanoTime();
+
+			// Read Documents
+			readActivity.readEntities();
+
+			// Record End Time and calculate Run Time
+			long estimatedTime = System.nanoTime() - startTime;
+			double seconds = (double) estimatedTime / 1000000000.0;
+
+			resultRead.addMeasureResult("Read All Entries", seconds, this.inserts * this.runs, false);
+//			
+//		}
+		this.readActivity.closeConnection();
+		deleteTestEnvironment();
+
+		// Print Result
+		return this.resultRead;
+	}
+
+	@SuppressWarnings("deprecation")
 	private void createTestEnvironment() throws Exception {
 
 		// Get URI
@@ -122,9 +163,6 @@ public class FrameworkTest {
 
 		// Connect to MongoDB Server
 		this.mongoClient = new MongoClient(addrs);
-
-		// Set Read Preference
-		this.mongoClient.setReadPreference(ReadPreference.secondary());
 
 		// Connect to Database (Creates the DB if it does not exist)
 		this.db = this.mongoClient.getDB(this.db_name);
@@ -147,7 +185,7 @@ public class FrameworkTest {
 		this.db.getCollection(this.collection_post_name).drop();
 		this.db.getCollection(this.collection_comment_name).drop();
 		this.db.getCollection(this.collection_discussion_name).drop();
-		this.mh.closeConnection();
+		entityManagerFactory.close();
 
 	}
 

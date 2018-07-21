@@ -4,28 +4,23 @@ import java.util.Arrays;
 import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import com.haw_hamburg.de.objectMapping.hibernate.entities.Comment;
 import com.haw_hamburg.de.objectMapping.hibernate.entities.Discussion;
 import com.haw_hamburg.de.objectMapping.hibernate.entities.LoginData;
 import com.haw_hamburg.de.objectMapping.hibernate.entities.Post;
 import com.haw_hamburg.de.objectMapping.hibernate.entities.User;
 
-public class MongoHibernate {
+public class StoreActivity {
 
 	// Testkonfig
 	public Integer inserts;
 
 	private static int runCount = 0;
-
-	private static EntityManagerFactory entityManagerFactory;
 	EntityManager entityManager;
 
-	public MongoHibernate(Integer inserts) {
+	public StoreActivity(Integer inserts, EntityManagerFactory entityManagerFactory) {
 		this.inserts = inserts;
-		entityManagerFactory = 
-				Persistence.createEntityManagerFactory("userPostsMongo");
-		entityManager = entityManagerFactory.createEntityManager();
+		this.entityManager = entityManagerFactory.createEntityManager();
 	}
 
 	public void persistEntities() {
@@ -105,7 +100,6 @@ public class MongoHibernate {
 
 	public void closeConnection() {
 		entityManager.close();
-		entityManagerFactory.close();
 	}
 
 }
