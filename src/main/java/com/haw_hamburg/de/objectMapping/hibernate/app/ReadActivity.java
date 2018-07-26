@@ -21,7 +21,7 @@ public class ReadActivity {
 	EntityManager entityManager;
 
 	public ReadActivity(EntityManagerFactory entityManagerFactory) {
-		entityManagerFactory.createEntityManager();
+		entityManager = entityManagerFactory.createEntityManager();
 	}
 
 	public void readEntities() {
