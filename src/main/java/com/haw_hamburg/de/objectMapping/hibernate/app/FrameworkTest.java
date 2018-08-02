@@ -132,9 +132,6 @@ public class FrameworkTest {
 		// Intialize Variables
 		this.resultRead = new Result();
 
-//		int runsRead = this.runs;
-//		for (Integer j = 0; j < runsRead; j++) {
-
 			// Record Start Time
 			long startTime = System.nanoTime();
 
@@ -146,8 +143,6 @@ public class FrameworkTest {
 			double seconds = (double) estimatedTime / 1000000000.0;
 
 			resultRead.addMeasureResult("Read All Entries", seconds, this.inserts * this.runs, false);
-//			
-//		}
 		this.readActivity.closeConnection();
 		deleteTestEnvironment();
 
