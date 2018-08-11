@@ -33,6 +33,16 @@ public class ReadActivity {
 		entityManager.getTransaction().commit();
 
 	}
+	
+	public void readUsers() {
+		entityManager.getTransaction().begin();
+		users = entityManager.createQuery("SELECT u FROM User u WHERE firstName = 'user1' ", User.class).getResultList();
+//		posts = entityManager.createQuery("SELECT p FROM Post p ", Post.class).getResultList();
+//		comments = entityManager.createQuery("SELECT c FROM Comment c ", Comment.class).getResultList();
+//		discussions = entityManager.createQuery("SELECT d FROM Discussion d ", Discussion.class).getResultList();
+		entityManager.getTransaction().commit();
+
+	}
 
 	public void closeConnection() {
 		entityManager.close();

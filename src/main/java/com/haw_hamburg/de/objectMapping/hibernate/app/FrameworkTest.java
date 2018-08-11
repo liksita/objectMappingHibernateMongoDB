@@ -136,16 +136,17 @@ public class FrameworkTest {
 			long startTime = System.nanoTime();
 
 			// Read Documents
-			readActivity.readEntities();
+//			readActivity.readEntities();
+			readActivity.readUsers();
 
 			// Record End Time and calculate Run Time
 			long estimatedTime = System.nanoTime() - startTime;
 			double seconds = (double) estimatedTime / 1000000000.0;
 
-			resultRead.addMeasureResult("Read All Entries", seconds, this.inserts * this.runs, false);
+			resultRead.addMeasureResult("Read All Users with firstName=user1 ", seconds, this.inserts * this.runs, false);
 		this.readActivity.closeConnection();
 		deleteTestEnvironment();
-
+//		System.out.println("USERS: " + readActivity.getUsers().size());
 		// Print Result
 		return this.resultRead;
 	}
