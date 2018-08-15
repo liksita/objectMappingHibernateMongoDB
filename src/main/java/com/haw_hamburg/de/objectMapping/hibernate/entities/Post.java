@@ -11,6 +11,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -27,7 +28,7 @@ public class Post extends Activity {
 
 	private String title;
 
-	@OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private Set<Comment> userComments = new HashSet<>();
 
 	// constructors, getters and setters...
